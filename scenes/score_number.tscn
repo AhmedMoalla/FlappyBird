@@ -1,0 +1,18 @@
+[gd_scene load_steps=12 format=3 uid="uid://b7sd1oe2w5h81"]
+
+[ext_resource type="Script" uid="uid://d0rios08hj57p" path="res://scripts/score_number.gd" id="1_fqhj8"]
+[ext_resource type="Texture2D" uid="uid://m871iky5ja72" path="res://assets/sprites/0.png" id="2_67mry"]
+[ext_resource type="Texture2D" uid="uid://detm087giweof" path="res://assets/sprites/1.png" id="3_61e1w"]
+[ext_resource type="Texture2D" uid="uid://b48k116r12pav" path="res://assets/sprites/2.png" id="4_vu4hx"]
+[ext_resource type="Texture2D" uid="uid://bw1kis00sr7rw" path="res://assets/sprites/3.png" id="5_uxklr"]
+[ext_resource type="Texture2D" uid="uid://cvgk8q0ev8cf3" path="res://assets/sprites/4.png" id="6_c1etr"]
+[ext_resource type="Texture2D" uid="uid://4c8byb84g43w" path="res://assets/sprites/5.png" id="7_4i7nh"]
+[ext_resource type="Texture2D" uid="uid://dxv7rxdtvyten" path="res://assets/sprites/6.png" id="8_wifhj"]
+[ext_resource type="Texture2D" uid="uid://dl82yumjm1t41" path="res://assets/sprites/7.png" id="9_13f02"]
+[ext_resource type="Texture2D" uid="uid://bw2q4kbir7cmr" path="res://assets/sprites/8.png" id="10_mt6ut"]
+[ext_resource type="Texture2D" uid="uid://i8x4o0lde124" path="res://assets/sprites/9.png" id="11_sdook"]
+
+[node name="ScoreNumber" type="TextureRect"]
+stretch_mode = 3
+script = ExtResource("1_fqhj8")
+sprites = Array[CompressedTexture2D]([ExtResource("2_67mry"), ExtResource("3_61e1w"), ExtResource("4_vu4hx"), ExtResource("5_uxklr"), ExtResource("6_c1etr"), ExtResource("7_4i7nh"), ExtResource("8_wifhj"), ExtResource("9_13f02"), ExtResource("10_mt6ut"), ExtResource("11_sdook")])
