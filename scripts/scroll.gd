@@ -1,10 +1,10 @@
 extends Node
 
-var scroll_speed = Global.scroll_speed
-
+var stop_scrolling: bool = false
 var child_outside_screen: Node
 
 func _ready() -> void:
+	Global.game_over.connect(on_game_over)
 	for child in get_children():
 		child.screen_exited.connect(on_child_screen_exited)
 
@@ -14,9 +14,12 @@ func _on_child_entered_tree(child: Node) -> void:
 
 
 func _process(delta: float) -> void:
+	if stop_scrolling:
+		return
+	
 	var children = get_children()
 	for child in children:
-		child.translate(Vector2(-scroll_speed * delta, 0))
+		child.translate(Vector2(-Global.scroll_speed * delta, 0))
 		
 	if child_outside_screen != null:
 		var last_child = find_rightmost_child(children)
@@ -36,3 +39,7 @@ func find_rightmost_child(children: Array[Node]) -> Node:
 			max_x = child.position.x
 			max_x_child = child
 	return max_x_child
+
+
+func on_game_over() -> void:
+	stop_scrolling = true

@@ -1,12 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1s7w1aj5ieh"]
+[gd_scene load_steps=9 format=3 uid="uid://b1s7w1aj5ieh"]
 
 [ext_resource type="PackedScene" uid="uid://dfpwr1r2f2kus" path="res://scenes/bird.tscn" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://bf2l70y6oy44m" path="res://scripts/spawn_pipes.gd" id="1_o6xl0"]
+[ext_resource type="Script" uid="uid://bf2l70y6oy44m" path="res://scripts/main.gd" id="1_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://bo7oroio07ewy" path="res://assets/sprites/background-day.png" id="1_tefeu"]
-[ext_resource type="Script" uid="uid://b0u7gt5ptp0fi" path="res://scripts/bird.gd" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://dje32oem6r27b" path="res://scripts/scroll.gd" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cdubng3yb2h8o" path="res://scenes/floor.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://lmnai6rvjlex" path="res://scenes/score.tscn" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://iy7m30ngy6g3" path="res://scripts/camera.gd" id="7_tipki"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
+size = Vector2(421, 20)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o6xl0")
@@ -20,8 +23,8 @@ position = Vector2(404, 252)
 texture = ExtResource("1_tefeu")
 
 [node name="Bird" parent="." instance=ExtResource("1_o5qli")]
+z_index = 6
 position = Vector2(57, 81)
-script = ExtResource("2_sugp2")
 
 [node name="PipeScroll" type="Node" parent="."]
 script = ExtResource("3_jyhfs")
@@ -48,5 +51,15 @@ alignment = 1
 [node name="Score" parent="HBoxContainer" instance=ExtResource("7_o6xl0")]
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(160, 236)
+script = ExtResource("7_tipki")
+
+[node name="TopBoundary" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopBoundary"]
+position = Vector2(153, -49)
+shape = SubResource("RectangleShape2D_tefeu")
 
 [connection signal="child_entered_tree" from="PipeScroll" to="PipeScroll" method="_on_child_entered_tree"]

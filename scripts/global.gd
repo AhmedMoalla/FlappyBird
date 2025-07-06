@@ -1,5 +1,6 @@
 extends Node
 
+signal game_over
 signal score_changed(score: int)
 
 const scroll_speed: int = 100
