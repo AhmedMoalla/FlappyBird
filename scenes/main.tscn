@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1s7w1aj5ieh"]
+[gd_scene load_steps=10 format=3 uid="uid://b1s7w1aj5ieh"]
 
 [ext_resource type="PackedScene" uid="uid://dfpwr1r2f2kus" path="res://scenes/bird.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bf2l70y6oy44m" path="res://scripts/main.gd" id="1_o6xl0"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cdubng3yb2h8o" path="res://scenes/floor.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://lmnai6rvjlex" path="res://scenes/score.tscn" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://iy7m30ngy6g3" path="res://scripts/camera.gd" id="7_tipki"]
+[ext_resource type="Script" uid="uid://bpdn7q2klhilk" path="res://scripts/flash.gd" id="8_tipki"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
 size = Vector2(421, 20)
@@ -61,5 +62,17 @@ script = ExtResource("7_tipki")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopBoundary"]
 position = Vector2(153, -49)
 shape = SubResource("RectangleShape2D_tefeu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+z_index = 999
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_tipki")
+flash_duration = 0.05
 
 [connection signal="child_entered_tree" from="PipeScroll" to="PipeScroll" method="_on_child_entered_tree"]
