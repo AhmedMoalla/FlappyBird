@@ -20,6 +20,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 func show_buttons() -> void:
 	if Global.score > Global.best_score:
 		$ScoreBoard/BestScore.tween_score(Global.score)
+	$ScoreBoard/Medal.set_rank_for_score()
 	Global.reset_score_and_save_best_score()
 	$PlayButton.visible = true
 	$ScoreButton.visible = true

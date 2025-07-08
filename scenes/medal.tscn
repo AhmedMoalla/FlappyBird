@@ -1,0 +1,135 @@
+[gd_scene load_steps=13 format=3 uid="uid://bom2qox4ajuyo"]
+
+[ext_resource type="Script" uid="uid://cp5cdbc6cxvp6" path="res://scripts/medal.gd" id="1_cfjb0"]
+[ext_resource type="Texture2D" uid="uid://2vhfckdsaita" path="res://assets/sprites/medal_bronze.png" id="2_54dh5"]
+[ext_resource type="Texture2D" uid="uid://ceabbae051h23" path="res://assets/sprites/medal_silver.png" id="3_5foyp"]
+[ext_resource type="Texture2D" uid="uid://be70plpsdpgew" path="res://assets/sprites/medal_gold.png" id="4_rk6qh"]
+[ext_resource type="Texture2D" uid="uid://cqm26hy4xaoy7" path="res://assets/sprites/medal_platinum.png" id="5_kvcfd"]
+[ext_resource type="Texture2D" uid="uid://bg0j0px5oyw7t" path="res://assets/sprites/spark_0.png" id="6_kvcfd"]
+[ext_resource type="Texture2D" uid="uid://dhxu35pufftsj" path="res://assets/sprites/spark_1.png" id="7_2l2bc"]
+[ext_resource type="Texture2D" uid="uid://bj5tehdikjjum" path="res://assets/sprites/spark_2.png" id="8_tvht7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6wx46"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_kvcfd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2l2bc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tvht7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="Animation" id="Animation_kvcfd"]
+resource_name = "display_medal"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2l2bc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tvht7"]
+_data = {
+&"RESET": SubResource("Animation_2l2bc"),
+&"display_medal": SubResource("Animation_kvcfd")
+}
+
+[node name="Medal" type="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(1e-05, 1e-05)
+script = ExtResource("1_cfjb0")
+textures = Dictionary[int, Texture2D]({
+1: ExtResource("2_54dh5"),
+2: ExtResource("3_5foyp"),
+3: ExtResource("4_rk6qh"),
+4: ExtResource("5_kvcfd")
+})
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+texture = ExtResource("2_54dh5")
+
+[node name="Sparks" type="Node2D" parent="."]
+position = Vector2(-19, -20)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sparks"]
+position = Vector2(5, 28)
+sprite_frames = SubResource("SpriteFrames_6wx46")
+autoplay = "default"
+frame_progress = 0.80388
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Sparks"]
+position = Vector2(32, 23)
+sprite_frames = SubResource("SpriteFrames_6wx46")
+autoplay = "default"
+frame_progress = 0.803763
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="Sparks"]
+position = Vector2(20, 7)
+sprite_frames = SubResource("SpriteFrames_6wx46")
+autoplay = "default"
+frame_progress = 0.244755
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tvht7")
+}

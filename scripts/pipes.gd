@@ -5,4 +5,4 @@ func get_next_position() -> Vector2:
  
 
 func _on_score_trigger_body_entered(_body: Node2D) -> void:
-	Global.score += 1
+	Global.score += 10
