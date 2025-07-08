@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b1s7w1aj5ieh"]
+[gd_scene load_steps=34 format=3 uid="uid://b1s7w1aj5ieh"]
 
 [ext_resource type="PackedScene" uid="uid://dfpwr1r2f2kus" path="res://scenes/bird.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bf2l70y6oy44m" path="res://scripts/main.gd" id="1_o6xl0"]
@@ -16,9 +16,20 @@
 [ext_resource type="Texture2D" uid="uid://btsuopaq6u3r5" path="res://assets/sprites/button_play_pressed.png" id="14_jkv2x"]
 [ext_resource type="Texture2D" uid="uid://v1v75jdoyhab" path="res://assets/sprites/button_score_normal.png" id="15_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://dbcuuqb34tbum" path="res://assets/sprites/button_score_pressed.png" id="16_muem4"]
+[ext_resource type="Texture2D" uid="uid://c4wb60almiblg" path="res://assets/sprites/button_pause.png" id="17_muem4"]
+[ext_resource type="Script" uid="uid://kbpm5863amyv" path="res://scripts/pause.gd" id="18_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://co6be5mbutros" path="res://assets/sprites/button_resume.png" id="19_0ld40"]
+[ext_resource type="Texture2D" uid="uid://tnhn0x3k3emn" path="res://assets/sprites/button_menu.png" id="20_gqmmt"]
+[ext_resource type="Script" uid="uid://c5c4ijbd6uy34" path="res://scripts/resume.gd" id="20_yc10j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
 size = Vector2(421, 20)
+
+[sub_resource type="InputEventAction" id="InputEventAction_yc10j"]
+action = &"pause"
+
+[sub_resource type="Shortcut" id="Shortcut_jscy8"]
+events = [SubResource("InputEventAction_yc10j")]
 
 [sub_resource type="Animation" id="Animation_muem4"]
 resource_name = "start_fade_in"
@@ -187,6 +198,12 @@ _data = {
 &"restart_fadeout": SubResource("Animation_jbj1t")
 }
 
+[sub_resource type="InputEventAction" id="InputEventAction_jscy8"]
+action = &"pause"
+
+[sub_resource type="Shortcut" id="Shortcut_pm3ni"]
+events = [SubResource("InputEventAction_jscy8")]
+
 [node name="Main" type="Node2D" node_paths=PackedStringArray("score_node")]
 script = ExtResource("1_o6xl0")
 score_node = NodePath("ScoreContainer/Score")
@@ -248,9 +265,21 @@ script = ExtResource("7_tipki")
 position = Vector2(153, -49)
 shape = SubResource("RectangleShape2D_tefeu")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Overlay" type="CanvasLayer" parent="."]
 
-[node name="WhiteFlash" type="ColorRect" parent="CanvasLayer"]
+[node name="PauseButton" type="TextureButton" parent="Overlay" node_paths=PackedStringArray("pause_layer")]
+anchors_preset = -1
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 25.0
+offset_bottom = 26.0
+scale = Vector2(2.5, 2.5)
+shortcut = SubResource("Shortcut_jscy8")
+texture_normal = ExtResource("17_muem4")
+script = ExtResource("18_dp3eg")
+pause_layer = NodePath("../../PauseLayer")
+
+[node name="WhiteFlash" type="ColorRect" parent="Overlay"]
 visible = false
 z_index = 999
 anchors_preset = 15
@@ -258,19 +287,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("8_tipki")
 flash_duration = 0.05
 
-[node name="StartBlackFadeIn" type="ColorRect" parent="CanvasLayer"]
+[node name="StartBlackFadeIn" type="ColorRect" parent="Overlay"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Overlay"]
 root_node = NodePath("../StartBlackFadeIn")
 libraries = {
 &"": SubResource("AnimationLibrary_dp3eg")
@@ -334,6 +365,47 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
+[node name="PauseLayer" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PauseLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.356863)
+
+[node name="ResumeButton" type="TextureButton" parent="PauseLayer"]
+anchors_preset = -1
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 25.0
+offset_bottom = 26.0
+scale = Vector2(2.5, 2.5)
+shortcut = SubResource("Shortcut_pm3ni")
+texture_normal = ExtResource("19_0ld40")
+script = ExtResource("20_yc10j")
+
+[node name="MenuButton" type="TextureButton" parent="PauseLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.0
+offset_right = 20.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.8, 1.8)
+pivot_offset = Vector2(20, 7)
+texture_normal = ExtResource("20_gqmmt")
+
 [connection signal="child_entered_tree" from="PipeScroll" to="PipeScroll" method="_on_child_entered_tree"]
+[connection signal="pressed" from="Overlay/PauseButton" to="Overlay/PauseButton" method="_on_pressed"]
 [connection signal="animation_finished" from="GameOverScore/AnimationPlayer" to="GameOverScore" method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="GameOverScore/PlayButton" to="GameOverScore" method="_on_play_button_pressed"]
+[connection signal="pressed" from="PauseLayer/ResumeButton" to="PauseLayer/ResumeButton" method="_on_pressed"]

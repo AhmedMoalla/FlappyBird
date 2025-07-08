@@ -22,7 +22,6 @@ func show_buttons() -> void:
 
 
 func _on_play_button_pressed() -> void:
-	print("pressed")
 	$AnimationPlayer.play("restart_fadeout")
 
 

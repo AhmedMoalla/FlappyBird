@@ -7,7 +7,7 @@ var starting_x_position = 500
 @export var score_node: Node
 
 func _ready() -> void:
-	$CanvasLayer/StartBlackFadeIn.visible = true
+	$Overlay/StartBlackFadeIn.visible = true
 	Global.score_changed.connect(on_score_changed)
 	var current_x = starting_x_position
 	for i in range(3):
@@ -15,9 +15,9 @@ func _ready() -> void:
 		current_x += Global.pipe_distance
 
 
-func spawn_pipe(name: String, x: int) -> void:
+func spawn_pipe(pipe_name: String, x: int) -> void:
 	var pipes = pipes_scene.instantiate()
-	pipes.name = name
+	pipes.name = pipe_name
 	pipes.position = Vector2(x, randi_range(Global.pipe_min_y, Global.pipe_max_y))
 	$PipeScroll.add_child(pipes)
 
