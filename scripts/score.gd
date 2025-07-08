@@ -9,7 +9,6 @@ func _ready() -> void:
 var displayed_score = 0
 
 
-# Tweening score from zero to given score
 func tween_score(score: int) -> Tween:
 	var tween: Tween = create_tween()
 	tween.tween_method(set_score, displayed_score, score, 0.5)
