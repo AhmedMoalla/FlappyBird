@@ -6,14 +6,18 @@ func _ready() -> void:
 	add_score_number_child()
 
 
+var displayed_score = 0
+
+
 # Tweening score from zero to given score
 func tween_score(score: int) -> Tween:
 	var tween: Tween = create_tween()
-	tween.tween_method(set_score, 0, score, 0.5)
+	tween.tween_method(set_score, displayed_score, score, 0.5)
 	return tween
 
 
 func set_score(score: int) -> void:
+	displayed_score = score
 	var score_numbers = get_children()
 	var digits = get_score_digits(score)
 	for i in digits.size():

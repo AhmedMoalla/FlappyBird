@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b1s7w1aj5ieh"]
+[gd_scene load_steps=36 format=3 uid="uid://b1s7w1aj5ieh"]
 
 [ext_resource type="PackedScene" uid="uid://dfpwr1r2f2kus" path="res://scenes/bird.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bf2l70y6oy44m" path="res://scripts/main.gd" id="1_o6xl0"]
@@ -198,6 +198,12 @@ _data = {
 &"restart_fadeout": SubResource("Animation_jbj1t")
 }
 
+[sub_resource type="InputEventAction" id="InputEventAction_pm3ni"]
+action = &"jump"
+
+[sub_resource type="Shortcut" id="Shortcut_y6deb"]
+events = [SubResource("InputEventAction_pm3ni")]
+
 [sub_resource type="InputEventAction" id="InputEventAction_jscy8"]
 action = &"pause"
 
@@ -342,6 +348,7 @@ offset_top = 307.0
 offset_right = 99.0
 offset_bottom = 336.0
 scale = Vector2(2.006, 2)
+shortcut = SubResource("Shortcut_y6deb")
 texture_normal = ExtResource("13_a8y0u")
 texture_pressed = ExtResource("14_jkv2x")
 

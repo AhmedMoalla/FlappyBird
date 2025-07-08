@@ -12,11 +12,15 @@ func show_score() -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "display_animation":
+		$ScoreBoard/BestScore.set_score(Global.best_score)
 		var tweener = $ScoreBoard/Score.tween_score(Global.score)
 		tweener.finished.connect(show_buttons)
 
 
 func show_buttons() -> void:
+	if Global.score > Global.best_score:
+		$ScoreBoard/BestScore.tween_score(Global.score)
+	Global.reset_score_and_save_best_score()
 	$PlayButton.visible = true
 	$ScoreButton.visible = true
 
