@@ -1,0 +1,151 @@
+[gd_scene load_steps=22 format=3 uid="uid://nmeif8hc7358"]
+
+[ext_resource type="Texture2D" uid="uid://bo7oroio07ewy" path="res://assets/sprites/background-day.png" id="1_con2f"]
+[ext_resource type="Script" uid="uid://dje32oem6r27b" path="res://scripts/scroll.gd" id="2_mhnvy"]
+[ext_resource type="PackedScene" uid="uid://cdubng3yb2h8o" path="res://scenes/floor.tscn" id="3_4ytvr"]
+[ext_resource type="Texture2D" uid="uid://s3b5qxm3b8d2" path="res://assets/sprites/message.png" id="4_mhnvy"]
+[ext_resource type="Texture2D" uid="uid://kybkd3bjocte" path="res://assets/sprites/button_play_normal.png" id="5_13sgg"]
+[ext_resource type="Texture2D" uid="uid://dj7s8256p76yh" path="res://assets/sprites/button_rate_normal.png" id="5_70i5f"]
+[ext_resource type="Texture2D" uid="uid://btsuopaq6u3r5" path="res://assets/sprites/button_play_pressed.png" id="6_i6lef"]
+[ext_resource type="Texture2D" uid="uid://05rggq2dnj34" path="res://assets/sprites/button_rate_pressed.png" id="6_mj5lg"]
+[ext_resource type="Texture2D" uid="uid://v1v75jdoyhab" path="res://assets/sprites/button_score_normal.png" id="7_70i5f"]
+[ext_resource type="Texture2D" uid="uid://dbcuuqb34tbum" path="res://assets/sprites/button_score_pressed.png" id="8_mj5lg"]
+[ext_resource type="Script" uid="uid://d20h72nbb1jq5" path="res://scripts/start.gd" id="9_i42df"]
+[ext_resource type="PackedScene" uid="uid://b1s7w1aj5ieh" path="res://scenes/main.tscn" id="10_7jp70"]
+[ext_resource type="Texture2D" uid="uid://b868chu8263xn" path="res://assets/sprites/yellowbird-downflap.png" id="11_6cdou"]
+[ext_resource type="Texture2D" uid="uid://0bwv1oyikajh" path="res://assets/sprites/yellowbird-midflap.png" id="12_i42df"]
+[ext_resource type="Texture2D" uid="uid://5s8pc8nv5mt7" path="res://assets/sprites/yellowbird-upflap.png" id="13_7jp70"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_pm3ni"]
+action = &"jump"
+
+[sub_resource type="Shortcut" id="Shortcut_ufwb2"]
+events = [SubResource("InputEventAction_pm3ni")]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mxgkd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_6cdou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_i42df")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_7jp70")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_6cdou"]
+resource_name = "move_bird"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(160, 208), Vector2(160, 200), Vector2(160, 208), Vector2(160, 216), Vector2(160, 208)]
+}
+
+[sub_resource type="Animation" id="Animation_i42df"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(160, 208)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7jp70"]
+_data = {
+&"RESET": SubResource("Animation_i42df"),
+&"move_bird": SubResource("Animation_6cdou")
+}
+
+[node name="Menu" type="Node2D"]
+
+[node name="Background-day" type="Sprite2D" parent="."]
+position = Vector2(128, 252)
+texture = ExtResource("1_con2f")
+
+[node name="Background-day2" type="Sprite2D" parent="."]
+position = Vector2(404, 252)
+texture = ExtResource("1_con2f")
+
+[node name="FloorScroll" type="Node" parent="."]
+script = ExtResource("2_mhnvy")
+
+[node name="Floor" parent="FloorScroll" instance=ExtResource("3_4ytvr")]
+position = Vector2(101, 466)
+
+[node name="Floor2" parent="FloorScroll" instance=ExtResource("3_4ytvr")]
+position = Vector2(302.5, 466)
+
+[node name="Floor3" parent="FloorScroll" instance=ExtResource("3_4ytvr")]
+position = Vector2(504, 466)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(160, 137)
+texture = ExtResource("4_mhnvy")
+region_enabled = true
+region_rect = Rect2(0, 0, 184, 48.8333)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RateButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 127.5
+offset_top = 250.0
+offset_right = 158.5
+offset_bottom = 268.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("5_70i5f")
+texture_pressed = ExtResource("6_mj5lg")
+
+[node name="PlayButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 47.0
+offset_top = 307.0
+offset_right = 99.0
+offset_bottom = 336.0
+scale = Vector2(2.006, 2)
+shortcut = SubResource("Shortcut_ufwb2")
+texture_normal = ExtResource("5_13sgg")
+texture_pressed = ExtResource("6_i6lef")
+script = ExtResource("9_i42df")
+game_scene = ExtResource("10_7jp70")
+
+[node name="ScoreButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 169.0
+offset_top = 307.0
+offset_right = 221.0
+offset_bottom = 336.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("7_70i5f")
+texture_pressed = ExtResource("8_mj5lg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(160, 208)
+sprite_frames = SubResource("SpriteFrames_mxgkd")
+autoplay = "default"
+frame_progress = 0.969012
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_7jp70")
+}
+autoplay = "move_bird"
+
+[connection signal="pressed" from="CanvasLayer/PlayButton" to="CanvasLayer/PlayButton" method="_on_pressed"]
