@@ -3,11 +3,17 @@ extends BoxContainer
 var score_number_scene: PackedScene = preload("res://scenes/score_number.tscn")
 
 func _ready() -> void:
-	Global.score_changed.connect(on_score_changed)
 	add_score_number_child()
 
 
-func on_score_changed(score: int) -> void:
+# Tweening score from zero to given score
+func tween_score(score: int) -> Tween:
+	var tween: Tween = create_tween()
+	tween.tween_method(set_score, 0, score, 0.5)
+	return tween
+
+
+func set_score(score: int) -> void:
 	var score_numbers = get_children()
 	var digits = get_score_digits(score)
 	for i in digits.size():

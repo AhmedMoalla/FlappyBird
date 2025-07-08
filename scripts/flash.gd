@@ -6,6 +6,7 @@ var flash_timer := 0.0
 var flashing := false
 
 func _ready():
+	visible = true
 	Global.game_over.connect(flash)
 	modulate.a = 0.0  # Make sure it's initially invisible
 

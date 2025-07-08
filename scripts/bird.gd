@@ -39,11 +39,5 @@ func update_rotation(delta):
 
 func game_over():
 	Global.game_over.emit()
-	# White flash
-	# Camera Shake
 	stop_moving = true
 	set_collision_mask_value(2, false) # Disable collision only with pipes
-
-	# Pop game over screen with score
-	print("game over")
-	pass

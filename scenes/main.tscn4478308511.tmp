@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b1s7w1aj5ieh"]
+[gd_scene load_steps=17 format=3 uid="uid://b1s7w1aj5ieh"]
 
 [ext_resource type="PackedScene" uid="uid://dfpwr1r2f2kus" path="res://scenes/bird.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bf2l70y6oy44m" path="res://scripts/main.gd" id="1_o6xl0"]
@@ -10,52 +10,11 @@
 [ext_resource type="Script" uid="uid://iy7m30ngy6g3" path="res://scripts/camera.gd" id="7_tipki"]
 [ext_resource type="PackedScene" uid="uid://crtjpw5j8smdq" path="res://scenes/score_board.tscn" id="8_85g3d"]
 [ext_resource type="Script" uid="uid://bpdn7q2klhilk" path="res://scripts/flash.gd" id="8_tipki"]
-[ext_resource type="Script" uid="uid://bpqjuxivircbt" path="res://scripts/gameover_score.gd" id="9_ya4ey"]
+[ext_resource type="Script" uid="uid://bpqjuxivircbt" path="res://scripts/game_over_score.gd" id="9_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://b3o7o5clmu76f" path="res://assets/sprites/gameover.png" id="10_choun"]
-[ext_resource type="Texture2D" uid="uid://kybkd3bjocte" path="res://assets/sprites/button_play_normal.png" id="13_a8y0u"]
-[ext_resource type="Texture2D" uid="uid://btsuopaq6u3r5" path="res://assets/sprites/button_play_pressed.png" id="14_jkv2x"]
-[ext_resource type="Texture2D" uid="uid://v1v75jdoyhab" path="res://assets/sprites/button_score_normal.png" id="15_jbj1t"]
-[ext_resource type="Texture2D" uid="uid://dbcuuqb34tbum" path="res://assets/sprites/button_score_pressed.png" id="16_muem4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
 size = Vector2(421, 20)
-
-[sub_resource type="Animation" id="Animation_muem4"]
-resource_name = "start_fade_in"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_dp3eg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dp3eg"]
-_data = {
-&"RESET": SubResource("Animation_dp3eg"),
-&"start_fade_in": SubResource("Animation_muem4")
-}
 
 [sub_resource type="Animation" id="Animation_choun"]
 length = 0.5
@@ -94,18 +53,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("RestartBlackFadeOut:color")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_85g3d"]
@@ -149,55 +96,15 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_jbj1t"]
-resource_name = "restart_fadeout"
-length = 0.5
-step = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RestartBlackFadeOut:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"reload_scene"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_choun"]
 _data = {
 &"RESET": SubResource("Animation_choun"),
-&"display_animation": SubResource("Animation_85g3d"),
-&"restart_fadeout": SubResource("Animation_jbj1t")
+&"display_animation": SubResource("Animation_85g3d")
 }
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("score_node")]
 script = ExtResource("1_o6xl0")
 score_node = NodePath("ScoreContainer/Score")
-
-[node name="OverflowBackground" type="ColorRect" parent="."]
-offset_left = -167.0
-offset_top = -117.0
-offset_right = -127.0
-offset_bottom = -77.0
-scale = Vector2(23, 19.12)
-color = Color(0.305882, 0.752941, 0.792157, 1)
 
 [node name="Background-day" type="Sprite2D" parent="."]
 position = Vector2(128, 252)
@@ -250,7 +157,7 @@ shape = SubResource("RectangleShape2D_tefeu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="WhiteFlash" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 visible = false
 z_index = 999
 anchors_preset = 15
@@ -260,22 +167,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_tipki")
 flash_duration = 0.05
-
-[node name="StartBlackFadeIn" type="ColorRect" parent="CanvasLayer"]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
-root_node = NodePath("../StartBlackFadeIn")
-libraries = {
-&"": SubResource("AnimationLibrary_dp3eg")
-}
-autoplay = "start_fade_in"
 
 [node name="GameOverScore" type="CanvasLayer" parent="."]
 visible = false
@@ -304,36 +195,5 @@ offset_bottom = -32.0
 grow_horizontal = 2
 texture = ExtResource("10_choun")
 
-[node name="PlayButton" type="TextureButton" parent="GameOverScore"]
-visible = false
-offset_left = 47.0
-offset_top = 307.0
-offset_right = 99.0
-offset_bottom = 336.0
-scale = Vector2(2.006, 2)
-texture_normal = ExtResource("13_a8y0u")
-texture_pressed = ExtResource("14_jkv2x")
-
-[node name="ScoreButton" type="TextureButton" parent="GameOverScore"]
-visible = false
-offset_left = 169.0
-offset_top = 307.0
-offset_right = 221.0
-offset_bottom = 336.0
-scale = Vector2(2, 2)
-texture_normal = ExtResource("15_jbj1t")
-texture_pressed = ExtResource("16_muem4")
-
-[node name="RestartBlackFadeOut" type="ColorRect" parent="GameOverScore"]
-z_index = 14
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0)
-
 [connection signal="child_entered_tree" from="PipeScroll" to="PipeScroll" method="_on_child_entered_tree"]
 [connection signal="animation_finished" from="GameOverScore/AnimationPlayer" to="GameOverScore" method="_on_animation_player_animation_finished"]
-[connection signal="pressed" from="GameOverScore/PlayButton" to="GameOverScore" method="_on_play_button_pressed"]
