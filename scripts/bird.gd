@@ -22,10 +22,13 @@ func _physics_process(delta: float) -> void:
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if not collision.get_collider().name == "TopBoundary":
+			$HitSound.play()
+			$FallingSound.play()
 			game_over()
 	
 	if Input.is_action_just_pressed("jump"):
 		velocity.y = jump_velocity
+		$JumpSound.play()
 	
 	update_rotation(delta)
 
